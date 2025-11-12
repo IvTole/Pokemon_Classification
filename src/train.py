@@ -11,9 +11,9 @@ from torchvision import transforms
 def main():
 
     # Setup hyperparameters
-    NUM_EPOCHS = 3
+    NUM_EPOCHS = 20
     BATCH_SIZE = 32
-    HIDDEN_UNITS = 10
+    HIDDEN_UNITS = 64
     LEARNING_RATE = 0.001
 
     # Setup directories
@@ -21,15 +21,19 @@ def main():
     test_dir = "../data/test"
 
     # Setup target device
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    if torch.backends.mps.is_available():
+        device = "mps"
+    elif torch.cuda.is_available():
+        device = "cuda"
+    else:
+        device = "cpu"
     print(f'Used device: {device}')
 
     # Create transforms
     data_transform = transforms.Compose([
     transforms.Resize((64, 64)),
-   #transforms.RandomHorizontalFlip(),
-   #transforms.RandomRotation(15),
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomRotation(25),
     transforms.ToTensor(),
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
@@ -67,8 +71,8 @@ def main():
 
     # Save the model with help from utils.py
     utils.save_model(model=model,
-                     target_dir="models",
-                     model_name="05_going_modular_script_mode_tinyvgg_model.pth")
+                     target_dir="../models",
+                     model_name="pokemon_tinyvgg_v0.pth")
 
 if __name__ == '__main__':
     main()
