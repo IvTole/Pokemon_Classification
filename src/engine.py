@@ -173,6 +173,10 @@ def train(model: torch.nn.Module,
           loss_fn=loss_fn,
           device=device)
       
+      # Synchronize MPS operations
+      if str(device) == "mps":
+          torch.mps.synchronize()
+      
       # Print out what's happening
       print(
           f"Epoch: {epoch+1} | "
