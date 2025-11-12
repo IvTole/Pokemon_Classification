@@ -9,7 +9,8 @@ __pycache__/
 # Miscellaneous
 **/.DS_Store
 **/.vscode/
-
+/data/train
+/data/test
 
 # Distribution / packaging
 .Python
