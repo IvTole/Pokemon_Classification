@@ -12,7 +12,7 @@ __pycache__/
 /data/train
 /data/test
 /models/pokemon_tinyvgg_v0.pth
-/notebooks
+#/notebooks
 
 # Distribution / packaging
 .Python
